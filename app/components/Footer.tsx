@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
 import SplitWords from "./SplitWords";
+import Roll from "./Roll";
 
 /** Ink-ground closing section: oversized inquiry CTA + site map + sign-off. */
 export default function Footer() {
@@ -18,9 +19,9 @@ export default function Footer() {
         <Reveal delay={200}>
           <Link
             href="/contact"
-            className="link-line mt-10 inline-block text-[13px] uppercase tracking-[0.18em]"
+            className="mt-10 inline-block text-[13px] uppercase tracking-[0.18em]"
           >
-            Inquire to begin
+            <Roll>Inquire to begin</Roll>
           </Link>
         </Reveal>
 
@@ -42,19 +43,20 @@ export default function Footer() {
             </a>
           </div>
 
-          <nav className="flex gap-8">
+          <nav className="flex flex-wrap gap-8">
             {[
               { href: "/", label: "Home" },
-              { href: "/work", label: "Work" },
-              { href: "/studio", label: "Studio" },
+              { href: "/about", label: "About" },
+              { href: "/services", label: "Services" },
+              { href: "/portfolio", label: "Portfolio" },
               { href: "/contact", label: "Contact" },
             ].map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="link-line text-[11px] uppercase tracking-[0.18em] text-stone"
+                className="text-[11px] uppercase tracking-[0.18em] text-stone"
               >
-                {l.label}
+                <Roll>{l.label}</Roll>
               </Link>
             ))}
           </nav>

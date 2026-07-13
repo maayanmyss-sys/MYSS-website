@@ -1,24 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Roll from "./Roll";
 
-const LINKS = [
-  { href: "/work", label: "Work" },
-  { href: "/studio", label: "Studio" },
-  { href: "/contact", label: "Contact" },
+const PILL_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
 ];
 
 /**
  * Fixed top bar in mix-blend-difference so it reads over the black hero and
- * salt sections alike. Hides on scroll down, returns on scroll up. On mobile
- * a burger opens a full-screen ink overlay with staggered menu links.
+ * salt sections alike. Desktop: logo left; a hairline capsule holding the
+ * page links in display italic, with Contact outside it in body type.
+ * Hides on scroll down, returns on scroll up. Mobile: burger + full-screen
+ * ink overlay with staggered links.
  */
 export default function Nav() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -42,33 +43,36 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 mix-blend-difference transition-transform duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 mix-blend-difference transition-transform duration-700 ${
           hidden && !open ? "-translate-y-full" : ""
         }`}
       >
-        <nav className="flex items-center justify-between px-6 py-5 text-salt md:px-10">
-          <Link href="/" aria-label="MYSS — home">
+        <nav className="flex items-center justify-between px-6 py-4 text-salt md:px-10">
+          <Link href="/" aria-label="MYSS - home">
             {/* Salt artwork + blend-difference inverts correctly over any ground */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-salt.png"
               alt="myss"
-              className="h-10 w-auto min-w-[90px]"
+              className="h-9 w-auto min-w-[90px]"
             />
           </Link>
 
-          <div className="hidden items-center gap-10 md:flex">
-            {LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`link-line text-[11px] font-normal uppercase tracking-[0.18em] ${
-                  pathname === l.href ? "bg-[length:100%_1px]" : ""
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
+          <div className="hidden items-center gap-8 md:flex">
+            <div className="flex items-center rounded-full border border-salt/60">
+              {PILL_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="px-7 py-2.5 font-display text-[19px] font-normal italic leading-none"
+                >
+                  <Roll>{l.label}</Roll>
+                </Link>
+              ))}
+            </div>
+            <Link href="/contact" className="text-[15px] font-light">
+              <Roll>Contact</Roll>
+            </Link>
           </div>
 
           <button
@@ -98,20 +102,22 @@ export default function Nav() {
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        {[{ href: "/", label: "Home" }, ...LINKS].map((l, i) => (
-          <div key={l.href} className="overflow-hidden py-2">
-            <Link
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className={`block font-display text-6xl font-light italic text-salt transition-transform duration-700 ${
-                open ? "translate-y-0" : "translate-y-full"
-              }`}
-              style={{ transitionDelay: open ? `${150 + i * 70}ms` : "0ms" }}
-            >
-              {l.label}
-            </Link>
-          </div>
-        ))}
+        {[{ href: "/", label: "Home" }, ...PILL_LINKS, { href: "/contact", label: "Contact" }].map(
+          (l, i) => (
+            <div key={l.href} className="overflow-hidden py-2">
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`block font-display text-5xl font-light italic text-salt transition-transform duration-700 ${
+                  open ? "translate-y-0" : "translate-y-full"
+                }`}
+                style={{ transitionDelay: open ? `${150 + i * 70}ms` : "0ms" }}
+              >
+                {l.label}
+              </Link>
+            </div>
+          ),
+        )}
         <p className="label mt-12 !text-stone">
           Tel Aviv &amp; Worldwide · @myss.social
         </p>

@@ -14,9 +14,9 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
-  title: "MYSS — Marketing Studio",
+  title: "MYSS - Marketing Studio",
   description:
-    "A women-led creative marketing studio building premium brand presence for fashion and beauty houses. Tel Aviv & worldwide. Not for everyone. Exactly for you.",
+    "A creative marketing studio building premium brand presence for fashion and beauty houses. Tel Aviv & worldwide.",
 };
 
 export default function RootLayout({

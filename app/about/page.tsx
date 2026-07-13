@@ -4,14 +4,16 @@ import Reveal from "../components/Reveal";
 import SplitWords from "../components/SplitWords";
 import MediaPlaceholder from "../components/MediaPlaceholder";
 import StatCounter from "../components/StatCounter";
+import TextFill from "../components/TextFill";
+import Roll from "../components/Roll";
 
 export const metadata: Metadata = {
-  title: "Studio — MYSS",
+  title: "About - MYSS",
   description:
-    "The house behind MYSS. A women-led creative studio in Tel Aviv, working worldwide.",
+    "The house behind MYSS. A creative studio in Tel Aviv, working worldwide.",
 };
 
-export default function StudioPage() {
+export default function AboutPage() {
   return (
     <main className="pt-32 md:pt-44">
       <header className="mx-auto max-w-[1400px] px-6 md:px-10">
@@ -20,8 +22,8 @@ export default function StudioPage() {
         </Reveal>
         <SplitWords
           as="h1"
-          text={"The brands she loves\nare built by women\nwho know her."}
-          className="mt-6 font-display text-5xl font-light italic leading-[1.04] md:text-[6.5vw]"
+          text={"The house\nbehind the work."}
+          className="mt-6 font-display text-6xl font-light italic leading-[1.02] md:text-[8vw]"
         />
       </header>
 
@@ -29,7 +31,7 @@ export default function StudioPage() {
       <section className="mx-auto max-w-[1400px] px-6 pt-24 md:px-10 md:pt-36">
         <div className="grid gap-8 md:grid-cols-12">
           <div className="group md:col-span-8">
-            <MediaPlaceholder ratio="aspect-[16/10]" caption="The studio — Tel Aviv" />
+            <MediaPlaceholder ratio="aspect-[16/10]" caption="The studio - Tel Aviv" />
           </div>
           <div className="group md:col-span-4 md:mt-24">
             <MediaPlaceholder ratio="aspect-[4/5]" delay={120} caption="Behind the scenes" />
@@ -37,36 +39,23 @@ export default function StudioPage() {
         </div>
       </section>
 
-      {/* Manifesto */}
+      {/* Scroll-driven manifesto - words fill from stone to ink as you read */}
       <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-44">
-        <div className="grid gap-12 md:grid-cols-12">
-          <Reveal as="p" className="label md:col-span-3">
-            Why we exist
-          </Reveal>
-          <div className="md:col-span-9">
-            <SplitWords
-              as="h2"
-              text={"Women make the overwhelming majority\nof consumer decisions. A studio that is\nthat audience reads it natively."}
-              className="font-display text-3xl font-light leading-[1.15] md:text-5xl"
-              stagger={40}
-            />
-            <Reveal
-              as="p"
-              delay={400}
-              className="mt-12 max-w-xl text-lg font-light leading-relaxed text-ink/80"
-            >
-              Not a diversity angle — a competitive one. We work with
-              established and emerging fashion, cosmetic, jewelry and
-              lifestyle brands, in Israel and internationally, who understand
-              that presence is a business asset, not a line item.
-            </Reveal>
-          </div>
-        </div>
+        <Reveal as="p" className="label mb-12">
+          What we believe
+        </Reveal>
+        <TextFill
+          className="max-w-4xl font-display text-3xl font-light leading-[1.35] md:text-5xl md:leading-[1.3]"
+          text="Presence is a business asset, so we build it with intent - content made at editorial level, for brands that refuse to look like everyone else. We take one brief at a time. We show less than we make. And everything we touch is designed to be noticed."
+        />
       </section>
 
-      {/* Stats on ink for rhythm */}
+      {/* The advantage - stats on ink for rhythm */}
       <section className="bg-ink text-salt">
         <div className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-40">
+          <Reveal as="p" className="label mb-16 !text-stone">
+            The advantage
+          </Reveal>
           <div className="grid gap-16 md:grid-cols-3">
             <Reveal>
               <p className="font-display text-8xl font-light">
@@ -74,23 +63,25 @@ export default function StudioPage() {
               </p>
               <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-salt/70">
                 of consumer purchasing decisions are made or shaped by women.
-                We are those women.
+                Our studio reads that audience natively.
               </p>
             </Reveal>
             <Reveal delay={120}>
               <p className="font-display text-8xl font-light">
-                <StatCounter value={100} suffix="%" />
+                <StatCounter value={1} pad={2} />
               </p>
               <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-salt/70">
-                women-built, women-run. The point of view is the product.
+                brief at a time. We take few clients, deliberately - scarcity
+                is the strategy.
               </p>
             </Reveal>
             <Reveal delay={240}>
               <p className="font-display text-8xl font-light">
-                <StatCounter value={1} pad={2} />
+                <StatCounter value={100} suffix="%" />
               </p>
               <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-salt/70">
-                brief at a time. We take few clients, deliberately.
+                bespoke. No packages, no templates - every engagement is
+                built around the brand it serves.
               </p>
             </Reveal>
           </div>
@@ -107,7 +98,7 @@ export default function StudioPage() {
             {
               no: "01",
               name: "Selective by design",
-              note: "Few clients. Full attention. Scarcity is the strategy.",
+              note: "Few clients. Full attention.",
             },
             {
               no: "02",
@@ -122,7 +113,7 @@ export default function StudioPage() {
             {
               no: "04",
               name: "Bespoke, never packaged",
-              note: "Every project is a partnership. Inquire to begin.",
+              note: "Every project is a partnership.",
             },
           ].map((s, i) => (
             <Reveal key={s.no} delay={i * 80}>
@@ -142,9 +133,9 @@ export default function StudioPage() {
         <Reveal delay={200}>
           <Link
             href="/contact"
-            className="link-line mt-16 inline-block text-[11px] uppercase tracking-[0.18em]"
+            className="mt-16 inline-block text-[11px] uppercase tracking-[0.18em]"
           >
-            Work with us
+            <Roll>Work with us</Roll>
           </Link>
         </Reveal>
       </section>

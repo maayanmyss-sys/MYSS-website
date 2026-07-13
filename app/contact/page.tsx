@@ -4,7 +4,7 @@ import SplitWords from "../components/SplitWords";
 import InquiryForm from "../components/InquiryForm";
 
 export const metadata: Metadata = {
-  title: "Contact — MYSS",
+  title: "Contact - MYSS",
   description:
     "Inquire to begin. MYSS takes few clients, deliberately. Tel Aviv & worldwide.",
 };
@@ -26,7 +26,7 @@ export default function ContactPage() {
           delay={250}
           className="mt-12 max-w-md text-lg font-light leading-relaxed text-ink/80"
         >
-          Every project is bespoke. Tell us about your brand — we respond to
+          Every project is bespoke. Tell us about your brand - we respond to
           every serious inquiry, and we take one brief at a time.
         </Reveal>
       </header>

@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** How aggressively the playhead chases the scroll target (0–1). */
-const LERP_FACTOR = 0.22;
+/** How aggressively the playhead chases the scroll target (0-1).
+    Low value = long glide. */
+const LERP_FACTOR = 0.075;
 
 /**
  * Apple-style scroll-scrubbed hero video.
@@ -42,7 +43,7 @@ export default function ScrollHero() {
       const target = targetProgress * duration;
       playhead += (target - playhead) * LERP_FACTOR;
 
-      // Skip the seek once we've settled — constant sub-frame seeks burn
+      // Skip the seek once we've settled - constant sub-frame seeks burn
       // CPU/battery while the page is idle.
       if (Math.abs(target - playhead) < 0.001) playhead = target;
       if (video.currentTime !== playhead) video.currentTime = playhead;

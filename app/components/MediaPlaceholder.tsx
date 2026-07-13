@@ -10,7 +10,7 @@ type MediaPlaceholderProps = {
 };
 
 /**
- * Blank black stand-in for a photo or video. Real media drops in later —
+ * Blank black stand-in for a photo or video. Real media drops in later -
  * keep the wrapper and swap the inner block for an <Image> or <video>.
  * .media-bw renders media grayscale until hovered (invisible on the solid
  * black placeholder, but live the moment a real image lands here).

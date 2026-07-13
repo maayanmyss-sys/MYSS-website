@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Roll from "./Roll";
 
 const FIELD =
-  "w-full border-b border-band bg-transparent py-4 font-light outline-none transition-colors duration-500 placeholder:text-stone/60 focus:border-ink";
+  "w-full border-b border-band bg-transparent py-4 font-light outline-none placeholder:text-stone/60";
 
 /**
- * Composes a mailto: draft to the studio inbox — works without a backend.
+ * Composes a mailto: draft to the studio inbox - works without a backend.
  * Swap handleSubmit for an API route when a form service is wired up.
  */
 export default function InquiryForm() {
@@ -15,7 +16,7 @@ export default function InquiryForm() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const subject = `Inquiry — ${data.get("brand") || "New brand"}`;
+    const subject = `Inquiry - ${data.get("brand") || "New brand"}`;
     const body = [
       `Name: ${data.get("name")}`,
       `Brand: ${data.get("brand")}`,
@@ -32,16 +33,16 @@ export default function InquiryForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-10">
       <div className="grid gap-10 md:grid-cols-2">
-        <label className="block">
+        <label className="field-line block">
           <span className="label">Name</span>
           <input name="name" required className={FIELD} placeholder="Your name" />
         </label>
-        <label className="block">
+        <label className="field-line block">
           <span className="label">Brand</span>
           <input name="brand" required className={FIELD} placeholder="Your brand" />
         </label>
       </div>
-      <label className="block">
+      <label className="field-line block">
         <span className="label">Email</span>
         <input
           name="email"
@@ -51,7 +52,7 @@ export default function InquiryForm() {
           placeholder="you@yourbrand.com"
         />
       </label>
-      <label className="block">
+      <label className="field-line block">
         <span className="label">The brief</span>
         <textarea
           name="message"
@@ -64,17 +65,15 @@ export default function InquiryForm() {
 
       <button
         type="submit"
-        className="group mt-4 flex w-fit items-center gap-4 border border-ink px-10 py-4 text-[11px] uppercase tracking-[0.18em] transition-colors duration-500 hover:bg-ink hover:text-salt"
+        className="group mt-4 flex w-fit items-center gap-4 border border-ink px-10 py-4 text-[11px] uppercase tracking-[0.18em] transition-colors duration-700 hover:bg-ink hover:text-salt"
       >
-        Send inquiry
-        <span className="transition-transform duration-500 group-hover:translate-x-1.5">
-          →
-        </span>
+        <Roll>Send inquiry</Roll>
+        <span aria-hidden="true">→</span>
       </button>
 
       {sent ? (
         <p className="text-sm font-light text-stone">
-          Your email draft is ready — send it and we will be in touch.
+          Your email draft is ready - send it and we will be in touch.
         </p>
       ) : null}
     </form>
