@@ -50,7 +50,13 @@ export default function StatCounter({
 
   const text = pad ? String(display).padStart(pad, "0") : String(display);
   return (
-    <span ref={ref} className={className}>
+    <span
+      ref={ref}
+      className={`stat-counter ${className}`}
+      data-value={value}
+      data-suffix={suffix}
+      data-pad={pad}
+    >
       {text}
       {suffix}
     </span>
