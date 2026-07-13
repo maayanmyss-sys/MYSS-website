@@ -23,7 +23,7 @@ export default function InquiryForm() {
       "",
       `${data.get("message")}`,
     ].join("\n");
-    window.location.href = `mailto:inquire@myssmarketingstudio.com?subject=${encodeURIComponent(
+    window.location.href = `mailto:maayan.myss@gmail.com?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
     setSent(true);

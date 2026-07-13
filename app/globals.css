@@ -89,6 +89,16 @@ body {
   clip-path: inset(0 0 0 0);
 }
 
+/* ————— Media: black & white until hovered ————— */
+.media-bw {
+  filter: grayscale(1);
+  transition: filter 0.6s var(--ease-out-expo);
+}
+.group:hover .media-bw,
+.media-bw:hover {
+  filter: grayscale(0);
+}
+
 /* ————— Marquee ticker ————— */
 @keyframes marquee {
   from {

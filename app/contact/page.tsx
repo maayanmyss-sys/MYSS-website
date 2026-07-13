@@ -38,10 +38,10 @@ export default function ContactPage() {
               <div>
                 <p className="label">Email</p>
                 <a
-                  href="mailto:inquire@myssmarketingstudio.com"
+                  href="mailto:maayan.myss@gmail.com"
                   className="link-line mt-2 inline-block font-light"
                 >
-                  inquire@myssmarketingstudio.com
+                  maayan.myss@gmail.com
                 </a>
               </div>
               <div>

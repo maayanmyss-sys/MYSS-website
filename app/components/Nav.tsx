@@ -47,12 +47,14 @@ export default function Nav() {
         }`}
       >
         <nav className="flex items-center justify-between px-6 py-5 text-salt md:px-10">
-          <Link
-            href="/"
-            className="font-display text-[26px] font-medium lowercase italic leading-none tracking-tight"
-            aria-label="MYSS — home"
-          >
-            myss
+          <Link href="/" aria-label="MYSS — home">
+            {/* Salt artwork + blend-difference inverts correctly over any ground */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-salt.png"
+              alt="myss"
+              className="h-10 w-auto min-w-[90px]"
+            />
           </Link>
 
           <div className="hidden items-center gap-10 md:flex">

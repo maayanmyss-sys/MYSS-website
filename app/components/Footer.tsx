@@ -12,7 +12,7 @@ export default function Footer() {
         </Reveal>
         <SplitWords
           as="h2"
-          text={"Ready to be seen\ndifferently."}
+          text={"Ready to be seen\ndifferently?"}
           className="mt-6 font-display text-[13vw] font-light italic leading-[0.95] md:text-[7.5vw]"
         />
         <Reveal delay={200}>
@@ -27,10 +27,10 @@ export default function Footer() {
         <div className="mt-28 flex flex-col gap-10 border-t border-salt/15 pt-10 md:mt-40 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col gap-2">
             <a
-              href="mailto:inquire@myssmarketingstudio.com"
+              href="mailto:maayan.myss@gmail.com"
               className="link-line w-fit text-sm font-light"
             >
-              inquire@myssmarketingstudio.com
+              maayan.myss@gmail.com
             </a>
             <a
               href="https://instagram.com/myss.social"

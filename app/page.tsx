@@ -4,14 +4,19 @@ import Reveal from "./components/Reveal";
 import SplitWords from "./components/SplitWords";
 import Marquee from "./components/Marquee";
 import MediaPlaceholder from "./components/MediaPlaceholder";
-import StatCounter from "./components/StatCounter";
 
 const SELECTED_WORK = [
   { no: "01", title: "Campaign No. 12", category: "For a maison", ratio: "aspect-[4/5]" },
   { no: "02", title: "Editorial Series", category: "Fine jewelry", ratio: "aspect-[3/4]" },
   { no: "03", title: "Brand Film", category: "Beauty house", ratio: "aspect-[16/10]" },
   { no: "04", title: "Studio Notes", category: "Marketing intelligence", ratio: "aspect-[4/5]" },
+  { no: "05", title: "Launch Direction", category: "Lifestyle maison", ratio: "aspect-[3/4]" },
+  { no: "06", title: "The Quiet Feed", category: "Cosmetics", ratio: "aspect-[16/10]" },
 ];
+
+// Placeholder slots — swap each for a client's logo image when ready
+// (e.g. <img src="/clients/name.png" className="media-bw h-8 w-auto" />).
+const CLIENT_SLOTS = ["01", "02", "03", "04", "05", "06", "07", "08"];
 
 export default function Home() {
   return (
@@ -19,19 +24,11 @@ export default function Home() {
       {/* Scroll-scrubbed hero video */}
       <ScrollHero />
 
-      {/* Answer to the hero — stays on ink so the cut from video is seamless */}
-      <section className="flex min-h-[90vh] items-center bg-ink text-salt">
-        <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
-          <SplitWords
-            as="h1"
-            text="So are we."
-            className="font-display text-[16vw] font-light italic leading-none md:text-[11vw]"
-            stagger={120}
-          />
-          <Reveal as="p" delay={500} className="label mt-10 !text-stone">
-            MYSS — a women-led creative studio · Tel Aviv &amp; Worldwide
-          </Reveal>
-        </div>
+      {/* Answer to the hero — quiet, small, centered on ink */}
+      <section className="flex min-h-[70vh] items-center justify-center bg-ink text-salt">
+        <Reveal as="p" className="font-display text-3xl font-light italic md:text-4xl">
+          So are we.
+        </Reveal>
       </section>
 
       {/* Who we are */}
@@ -51,10 +48,10 @@ export default function Home() {
               delay={300}
               className="mt-12 max-w-xl text-lg font-light leading-relaxed text-ink/80"
             >
-              MYSS is a women-led creative marketing studio building premium
-              brand presence for fashion and beauty houses. We work
-              selectively. We produce at editorial level. We bring the
-              instinct of women who are also the consumer.
+              MYSS is a creative marketing studio for fashion and beauty
+              houses. We make content you don&rsquo;t see anywhere else —
+              bespoke, editorial, impossible to scroll past. Every frame is
+              intentional. Every campaign is built to be noticed.
             </Reveal>
             <Reveal delay={450}>
               <Link
@@ -68,35 +65,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Signature line ticker */}
-      <section className="border-y border-band py-6">
-        <Marquee duration={30}>
-          {Array.from({ length: 4 }).map((_, i) => (
+      {/* Brands we've worked with — logo strip */}
+      <section className="border-y border-band py-10">
+        <Reveal as="p" className="label mb-8 text-center">
+          Brands we&rsquo;ve worked with
+        </Reveal>
+        <Marquee duration={35}>
+          {CLIENT_SLOTS.map((n) => (
             <span
-              key={i}
-              className="mx-8 flex items-center gap-16 whitespace-nowrap font-display text-3xl font-light italic md:text-4xl"
+              key={n}
+              className="group mx-12 flex h-10 w-36 shrink-0 items-center justify-center"
             >
-              Not for everyone. Exactly for you.
-              <span className="h-1 w-1 rounded-full bg-stone" />
+              {/* Placeholder mark — replace with the client's logo image */}
+              <span className="media-bw font-display text-xl font-light italic text-stone">
+                Client {n}
+              </span>
             </span>
           ))}
         </Marquee>
       </section>
 
-      {/* Selected work */}
-      <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-44">
-        <div className="flex items-end justify-between">
-          <div>
-            <Reveal as="p" className="label">
-              Selected work
-            </Reveal>
-            <SplitWords
-              as="h2"
-              text="Few creations. Only the ones that matter."
-              className="mt-6 max-w-3xl font-display text-4xl font-light leading-[1.08] md:text-6xl"
-            />
-          </div>
-          <Reveal delay={200} className="hidden md:block">
+      {/* Selected work — auto-scrolling gallery, pauses on hover */}
+      <section className="py-28 md:py-44">
+        <div className="mx-auto flex max-w-[1400px] items-baseline justify-between px-6 md:px-10">
+          <Reveal as="p" className="label">
+            Selected work
+          </Reveal>
+          <Reveal delay={150}>
             <Link
               href="/work"
               className="link-line text-[11px] uppercase tracking-[0.18em]"
@@ -106,115 +101,69 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <div className="mt-20 grid gap-x-8 gap-y-20 md:grid-cols-12">
-          {SELECTED_WORK.map((w, i) => (
-            <Link
-              key={w.no}
-              href="/work"
-              className={`group block ${
-                i % 2 === 0
-                  ? "md:col-span-7"
-                  : "md:col-span-5 md:mt-40"
-              }`}
-            >
-              <MediaPlaceholder ratio={w.ratio} delay={i * 80} />
-              <div className="mt-4 flex items-baseline justify-between">
-                <p className="font-display text-2xl font-light italic">
-                  {w.title}
-                </p>
-                <p className="label">
-                  {w.no} · {w.category}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <Reveal className="mt-20 md:hidden">
-          <Link
-            href="/work"
-            className="link-line text-[11px] uppercase tracking-[0.18em]"
-          >
-            All work
-          </Link>
+        <Reveal delay={200} className="mt-16">
+          <Marquee duration={45}>
+            {SELECTED_WORK.map((w) => (
+              <Link
+                key={w.no}
+                href="/work"
+                className="group mx-4 block w-[300px] shrink-0 md:w-[420px]"
+              >
+                <div className="media-bw aspect-[3/4] w-full bg-ink transition-transform duration-700 group-hover:scale-[0.98]" />
+                <div className="mt-4 flex items-baseline justify-between gap-4">
+                  <p className="font-display text-xl font-light italic md:text-2xl">
+                    {w.title}
+                  </p>
+                  <p className="label whitespace-nowrap">
+                    {w.no} · {w.category}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </Marquee>
         </Reveal>
       </section>
 
-      {/* The advantage — stats band */}
+      {/* The house teaser — the one women-led note on this page */}
       <section className="bg-mist">
-        <div className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-40">
-          <Reveal as="p" className="label">
-            The advantage
-          </Reveal>
-          <div className="mt-16 grid gap-16 md:grid-cols-3">
-            <Reveal>
-              <p className="font-display text-8xl font-light">
-                <StatCounter value={85} suffix="%" />
-              </p>
-              <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-ink/70">
-                of consumer purchasing decisions are made or shaped by women.
-                We are those women.
-              </p>
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="font-display text-8xl font-light">
-                <StatCounter value={100} suffix="%" />
-              </p>
-              <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-ink/70">
-                women-built, women-run. The point of view is the product.
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <p className="font-display text-8xl font-light">
-                <StatCounter value={1} pad={2} />
-              </p>
-              <p className="mt-6 max-w-xs text-base font-light leading-relaxed text-ink/70">
-                brief at a time. We take few clients, deliberately. Scarcity
-                is the strategy.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* The house teaser */}
-      <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-44">
-        <div className="grid items-center gap-16 md:grid-cols-2">
-          <div className="group">
-            <MediaPlaceholder ratio="aspect-[4/5]" caption="The house — portrait" />
-          </div>
-          <div>
-            <Reveal as="p" className="label">
-              The house
-            </Reveal>
-            <SplitWords
-              as="h2"
-              text={"A studio of women,\nfor the brands women love."}
-              className="mt-6 font-display text-4xl font-light leading-[1.08] md:text-6xl"
-            />
-            <Reveal
-              as="p"
-              delay={300}
-              className="mt-10 max-w-md text-lg font-light leading-relaxed text-ink/80"
-            >
-              The brands she loves are built by women who know her. Founders,
-              process, instinct — the point of view lives in everything we
-              make.
-            </Reveal>
-            <Reveal delay={450}>
-              <Link
-                href="/studio"
-                className="link-line mt-10 inline-block text-[11px] uppercase tracking-[0.18em]"
+        <div className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-44">
+          <div className="grid items-center gap-16 md:grid-cols-2">
+            <div className="group">
+              <MediaPlaceholder ratio="aspect-[4/5]" caption="The house — portrait" />
+            </div>
+            <div>
+              <Reveal as="p" className="label">
+                The house
+              </Reveal>
+              <SplitWords
+                as="h2"
+                text={"A studio of women,\nfor the brands women love."}
+                className="mt-6 font-display text-4xl font-light leading-[1.08] md:text-6xl"
+              />
+              <Reveal
+                as="p"
+                delay={300}
+                className="mt-10 max-w-md text-lg font-light leading-relaxed text-ink/80"
               >
-                Inside the studio
-              </Link>
-            </Reveal>
+                Founders, process, instinct — and a standard of craft that
+                turns a feed into a flagship. Selective by design. Bespoke,
+                always.
+              </Reveal>
+              <Reveal delay={450}>
+                <Link
+                  href="/studio"
+                  className="link-line mt-10 inline-block text-[11px] uppercase tracking-[0.18em]"
+                >
+                  Inside the studio
+                </Link>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
       {/* What we do — index rows */}
-      <section className="mx-auto max-w-[1400px] px-6 pb-28 md:px-10 md:pb-44">
+      <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-44">
         <Reveal as="p" className="label">
           What we do
         </Reveal>
