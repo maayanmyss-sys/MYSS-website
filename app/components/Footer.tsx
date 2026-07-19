@@ -1,70 +1,62 @@
-import Link from "next/link";
 import Reveal from "./Reveal";
-import SplitWords from "./SplitWords";
 import Roll from "./Roll";
 
-/** Ink-ground closing section: oversized inquiry CTA + site map + sign-off. */
+const SOCIALS = [
+  { label: "Instagram", href: "https://instagram.com/myss.social" },
+  { label: "TikTok", href: "https://tiktok.com/@myss.social" },
+  { label: "LinkedIn", href: "https://linkedin.com/company/myss" },
+];
+
+/** Oversized closing statement, contact and socials on an ink ground. */
 export default function Footer() {
   return (
-    <footer className="bg-ink text-salt">
-      <div className="mx-auto max-w-[1400px] px-6 pb-10 pt-28 md:px-10 md:pt-40">
-        <Reveal as="p" className="label !text-stone">
-          New business
+    <footer
+      id="contact"
+      className="flex min-h-screen flex-col justify-between bg-ink px-6 pt-32 pb-10 text-salt md:px-10 md:pt-44"
+    >
+      <div>
+        <Reveal>
+          <p className="label mb-8 !text-stone">Next</p>
         </Reveal>
-        <SplitWords
-          as="h2"
-          text={"Ready to be seen\ndifferently?"}
-          className="mt-6 font-display text-[13vw] font-light italic leading-[0.95] md:text-[7.5vw]"
-        />
-        <Reveal delay={200}>
-          <Link
-            href="/contact"
-            className="mt-10 inline-block text-[13px] uppercase tracking-[0.18em]"
+        <Reveal delay={100}>
+          <h2 className="footer-title font-display font-light">
+            <span className="block leading-[0.92]">Ready to be</span>
+            <span className="block italic leading-[0.92]">
+              seen differently?
+            </span>
+          </h2>
+        </Reveal>
+        <Reveal delay={250}>
+          <a
+            href="mailto:maayan.myss@gmail.com"
+            className="link-line mt-14 inline-block font-display text-2xl font-light italic text-salt md:text-4xl"
           >
-            <Roll>Inquire to begin</Roll>
-          </Link>
+            maayan.myss@gmail.com
+          </a>
         </Reveal>
+      </div>
 
-        <div className="mt-28 flex flex-col gap-10 border-t border-salt/15 pt-10 md:mt-40 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-col gap-2">
-            <a
-              href="mailto:maayan.myss@gmail.com"
-              className="link-line w-fit text-sm font-light"
-            >
-              maayan.myss@gmail.com
-            </a>
-            <a
-              href="https://instagram.com/myss.social"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-line w-fit text-sm font-light"
-            >
-              @myss.social
-            </a>
-          </div>
-
-          <nav className="flex flex-wrap gap-8">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/about", label: "About" },
-              { href: "/services", label: "Services" },
-              { href: "/portfolio", label: "Portfolio" },
-              { href: "/contact", label: "Contact" },
-            ].map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-[11px] uppercase tracking-[0.18em] text-stone"
+      <div className="mt-24 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+        <ul className="flex gap-8">
+          {SOCIALS.map((s) => (
+            <li key={s.label}>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[15px] font-light text-salt"
               >
-                <Roll>{l.label}</Roll>
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-2 text-[11px] uppercase tracking-[0.18em] text-stone md:flex-row md:justify-between">
-          <p>© 2026 MYSS · Tel Aviv &amp; Worldwide</p>
-          <p>Made by women. Noticed by everyone.</p>
+                <Roll>{s.label}</Roll>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="flex items-end justify-between gap-8 md:flex-col md:items-end md:gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-salt.png" alt="myss" className="h-10 w-auto md:h-12" />
+          <p className="label !text-stone">
+            © {new Date().getFullYear()} · MYSS — Tel Aviv &amp; worldwide
+          </p>
         </div>
       </div>
     </footer>

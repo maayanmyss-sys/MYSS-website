@@ -55,29 +55,6 @@ body {
   transform: none;
 }
 
-/* Masked word/line reveal for display headings */
-.mask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
-.mask > span {
-  display: inline-block;
-  transform: translateY(115%);
-  transition: transform 1.5s var(--ease-out-expo);
-  transition-delay: var(--mask-delay, 0ms);
-  will-change: transform;
-}
-.is-in .mask > span {
-  transform: none;
-}
-/* Extra-slow variant for statement lines */
-.soft .mask > span {
-  transition-duration: 2s;
-}
-
 /* Clip-wipe reveal for media blocks. The observed wrapper stays unclipped -
    a fully clipped element never reports as intersecting - so the clip lives
    on the child. */
@@ -91,34 +68,6 @@ body {
 }
 .clip-reveal.is-in > * {
   clip-path: inset(0 0 0 0);
-}
-
-/* ----- Media: black & white until hovered ----- */
-.media-bw {
-  filter: grayscale(1);
-  transition: filter 0.8s var(--ease-out-expo);
-}
-.group:hover .media-bw,
-.media-bw:hover {
-  filter: grayscale(0);
-}
-
-/* ----- Marquee ticker ----- */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee var(--marquee-duration, 28s) linear infinite;
-}
-.marquee-track:hover {
-  animation-play-state: paused;
 }
 
 /* ----- Underline-on-hover links ----- */
@@ -160,144 +109,114 @@ button:hover .roll-track,
   transform: translateY(-100%);
 }
 
-/* ----- Page enter transition ----- */
-@keyframes page-enter {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.page-enter {
-  animation: page-enter 0.9s var(--ease-out-expo) both;
-}
-
-/* ----- Service / index rows ----- */
-.index-row {
-  position: relative;
-  overflow: hidden;
-}
-.index-row::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--color-ink);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.7s var(--ease-out-expo);
-  z-index: 0;
-}
-.index-row:hover::after {
-  transform: scaleY(1);
+/* ----- Hero ----- */
+.hero-cue-line {
+  width: 1px;
+  height: 44px;
+  background: color-mix(in srgb, var(--color-salt) 70%, transparent);
+  animation: cue-drop 2.2s var(--ease-out-expo) infinite;
   transform-origin: top;
 }
-.index-row > * {
-  position: relative;
-  z-index: 1;
-}
-.index-row,
-.index-row * {
-  transition-property: color, transform, opacity;
-  transition-duration: 0.7s;
-  transition-timing-function: var(--ease-out-expo);
-}
-.index-row:hover,
-.index-row:hover * {
-  color: var(--color-salt);
+@keyframes cue-drop {
+  0% { transform: scaleY(0); }
+  45% { transform: scaleY(1); transform-origin: top; }
+  46% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
 }
 
-/* ----- Accordion (services) ----- */
-.acc-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 1s var(--ease-out-expo);
-}
-[data-open="true"] .acc-panel {
-  grid-template-rows: 1fr;
-}
-.acc-panel > div {
-  overflow: hidden;
-}
-.acc-mark {
-  transition: transform 0.7s var(--ease-out-expo);
-}
-[data-open="true"] .acc-mark {
-  transform: rotate(45deg);
-}
-
-/* ----- Scroll-driven text fill (about manifesto) ----- */
-.tf-word {
-  color: var(--color-stone);
-  opacity: 0.4;
+/* ----- Kinetic manifesto ----- */
+.manifesto-stage {
+  background: var(--color-salt);
   transition:
-    color 0.5s ease,
-    opacity 0.5s ease;
+    background-color 0.9s var(--ease-out-expo),
+    color 0.9s var(--ease-out-expo);
 }
-.tf-word.tf-on {
-  color: var(--color-ink);
-  opacity: 1;
+.manifesto-word {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(96px, 26vw, 30rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  will-change: transform, opacity, filter;
 }
 
-/* ----- Cursor-following portfolio preview ----- */
-.cursor-float {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  aspect-ratio: 3/4;
-  background: var(--color-ink);
-  pointer-events: none;
-  z-index: 30;
+/* ----- Selected work ----- */
+.work-media {
+  transition: clip-path 1.1s var(--ease-out-expo);
+  clip-path: inset(0 0 0 0);
+}
+.work-cover,
+.work-clip {
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1.6s var(--ease-out-expo);
+}
+.work-clip {
   opacity: 0;
-  transform: scale(0.9);
-  transition:
-    opacity 0.6s var(--ease-out-expo),
-    transform 0.6s var(--ease-out-expo);
-  will-change: left, top;
+  transform: scale(1.06);
 }
-.cursor-float.on {
+.work-card:hover .work-clip,
+.work-card:focus-visible .work-clip {
   opacity: 1;
   transform: scale(1);
 }
-
-/* ----- Form field focus ----- */
-.field-line {
-  position: relative;
+.work-card:hover .work-cover {
+  transform: scale(1.04);
 }
-.field-line::after {
-  content: "";
+.work-index {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px;
-  width: 100%;
-  background: var(--color-ink);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.9s var(--ease-out-expo);
+  top: 18px;
+  left: 20px;
+  z-index: 2;
+  mix-blend-mode: difference;
 }
-.field-line:focus-within::after {
-  transform: scaleX(1);
+.work-card h3 {
+  transition: transform 0.8s var(--ease-out-expo);
+}
+.work-card:hover h3 {
+  transform: translateX(8px);
+}
+
+/* ----- Services ----- */
+.service-row {
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+}
+.service-row:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+}
+.service-title {
+  font-size: clamp(44px, 6.5vw, 104px);
+  transition:
+    transform 0.9s var(--ease-out-expo),
+    font-style 0s;
+}
+.service-row:hover .service-title {
+  transform: translateX(14px);
+  font-style: italic;
+}
+
+/* ----- Footer ----- */
+.footer-title {
+  font-size: clamp(52px, 9.5vw, 176px);
+  letter-spacing: -0.015em;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .clip-reveal > *,
-  .mask > span {
+  .clip-reveal > * {
     transition: none;
     transform: none;
     opacity: 1;
     clip-path: none;
   }
-  .marquee-track {
-    animation: none;
-  }
   .roll-track,
-  .acc-panel,
-  .cursor-float {
+  .work-cover,
+  .work-clip,
+  .service-title {
     transition: none;
+  }
+  .hero-cue-line {
+    animation: none;
   }
 }
